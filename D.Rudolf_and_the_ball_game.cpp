@@ -5,30 +5,39 @@ using namespace std;
 int main()
 {
     int t; cin >> t;
-    while (t--) {
-        int n, m, a; cin >> n >> m >> a;
-        set <int> q[2];
+    while (t--) 
+    {
+
+        int n, m, x; 
+        cin >> n >> m >> x;
+        set <int>visited[2];
         int ix = 0;
-        q[ix].insert(a);
-        while (m--) {
-            int x; char ch; cin >> x >> ch;
-            while (!q[ix].empty()) {
-                int u = *(q[ix].begin());
-                q[ix].erase(u);
+        visited[ix].insert(x);
+        while (m--) 
+        {
+            int r; 
+            char ch; 
+            cin >> r >> ch;
+            while (!visited[ix].empty()) 
+            {
+                //getting the first element 
+                int u = *(visited[ix].begin());
+                visited[ix].erase(u);
                 if (ch == '?' || ch == '0') {
-                    q[ix ^ 1].insert((u + x - 1) % n + 1);
+                    visited[ix ^ 1].insert((u + r - 1) % n + 1);
                 }
                 if (ch == '?' || ch == '1') {
-                    q[ix ^ 1].insert((u - x - 1 + n) % n + 1);
+                    visited[ix ^ 1].insert((u - r - 1 + n) % n + 1);
                 }
             }
-            ix ^= 1;
+            ix = ix ^ 1;
         }
-        cout << q[ix].size() << '\n';
-        for (auto& x : q[ix]) {
-            cout << x << ' ';
+        cout << visited[ix].size() << endl;
+        for (auto& x : visited[ix]) 
+        {
+            cout << x<< " ";
         }
-        cout << '\n';
+        cout << endl;
     }
     return 0;
 }
